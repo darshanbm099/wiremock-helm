@@ -58,3 +58,6 @@ tolerations: []
 affinity: {}
 
 scheme: "HTTP"
+
+fileName: "mapping_1.json"
+

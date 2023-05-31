@@ -1,11 +1,11 @@
 {
   "request": {
       "method": "GET",
-      "url": "/v1/google"
+      "url": "/v1/aws"
   },
   "response":{
     "status":200,
-    "bodyFileName":"__files/response_2.json",
+    "bodyFileName":"__files/response_3.json",
     "headers":{
        "Content-Type":"application/json"
     }
