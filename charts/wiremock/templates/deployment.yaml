@@ -36,41 +36,31 @@ spec:
           ports:
             - containerPort: {{ .Values.service.internalPort }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /__admin/webapp
-              port: {{ .Values.service.internalPort }}
-              scheme: {{ .Values.scheme }}
-          readinessProbe:
-            httpGet:
-              path: /__admin/webapp
-              port: {{ .Values.service.internalPort }}
-              scheme: {{ .Values.scheme }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
-          - mountPath: /home/wiremock/storage/mappings
+          - mountPath: /home/wiremock
             name: mappings-data
-          - mountPath: /home/wiremock/storage/__files
+          - mountPath: /home/wiremock/__files
             name: responses-data
       initContainers:
       - name: copy-mappings
         image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
         imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
-        command: ["bash", "-c", "cp  -rf /data/mappings /home/wiremock/storage/mappings"]
+        command: ["bash", "-c", "cp  -rf /data/mappings /home/wiremock"]
         volumeMounts:
         - mountPath: /data/mappings
           name: mappings-volume
-        - mountPath: /home/wiremock/storage/mappings
+        - mountPath: /home/wiremock
           name: mappings-data
       - name: copy-responses
         image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
         imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
-        command: ["bash", "-c", "cp  -rf /data/responses /home/wiremock/storage/__files"]
+        command: ["bash", "-c", "cp  -rf /data/responses /home/wiremock/__files"]
         volumeMounts:
         - mountPath: /data/responses
           name: responses-volume
-        - mountPath: /home/wiremock/storage/__files
+        - mountPath: /home/wiremock
           name: responses-data    
     {{- with .Values.nodeSelector }}
       nodeSelector:

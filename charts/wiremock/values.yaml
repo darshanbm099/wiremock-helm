@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: holomekc/wiremock-gui
-  tag: 2.35.0.0
+  repository: wiremock/wiremock
+  tag: 2.35.0
   pullPolicy: IfNotPresent
 
 initContainer:
@@ -37,7 +37,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 env:
-  WIREMOCK_OPTIONS: "--port=9021,--max-request-journal=1000,--local-response-templating,--root-dir=/home/wiremock/storage"
+  WIREMOCK_OPTIONS: "--port=9021,--max-request-journal=1000,--local-response-templating,--root-dir=/home/wiremock"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
